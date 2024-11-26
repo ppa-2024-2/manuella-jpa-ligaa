@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.4'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'br.edu.ifrs.riogrande.tads.ppa'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Starter para Spring Data JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    
+    // Driver do PostgreSQL
+    runtimeOnly 'org.postgresql:postgresql'
+    
+    // Starter para aplicações web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
+    
+    // DevTools para desenvolvimento
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    
+    // Dependências para testes
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
