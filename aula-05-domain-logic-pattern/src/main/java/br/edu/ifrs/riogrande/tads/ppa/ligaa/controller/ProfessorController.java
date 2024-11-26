@@ -38,4 +38,23 @@ public class ProfessorController {
     public Professor buscarProfessorPorSiape(@PathVariable String siape) {
         return professorService.buscarProfessorPorSiape(siape);
     }
+
+    @PutMapping("/{id}")
+    public Professor atualizarProfessor(
+            @PathVariable Long id,
+            @RequestBody ProfessorDTO professorDTO) {
+        return professorService.atualizarProfessor(id, professorDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarProfessor(@PathVariable Long id) {
+        professorService.deletarProfessor(id);
+    }
+
+    //anotation patch atualiza apenas alguns campos especificos ao contrario do put que atualiza de forma totalitaria
+    @PatchMapping("/{id}/reativar")
+    public Professor reativarProfessor(@PathVariable Long id) {
+        return professorService.reativarProfessor(id);
+    }
 }

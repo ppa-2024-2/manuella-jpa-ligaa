@@ -55,24 +55,22 @@ public class AlunoService {
     }
 
     @Transactional
-    public void atualizarAluno(@NonNull String cpf, @NonNull NovoAlunoDTO atualizacaoDTO) {
+    public Aluno atualizarAluno(@NonNull String cpf, @NonNull NovoAlunoDTO atualizacaoDTO) {
         Aluno aluno = alunoRepository.findByCpf(cpf)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Aluno com CPF " + cpf + " não encontrado."));
 
-        // atualizando os campos do aluno
         aluno.setNome(atualizacaoDTO.getNome());
         aluno.setEnderecoEletronico(atualizacaoDTO.getEnderecoEletronico());
         aluno.setLogin(atualizacaoDTO.getEnderecoEletronico());
+        aluno.setDataHoraAlteracao(LocalDateTime.now());
 
-        alunoRepository.save(aluno);
+        return alunoRepository.save(aluno);
     }
 
     @Transactional
     public void desativarAluno(@NonNull String cpf) {
         Aluno aluno = alunoRepository.findByCpf(cpf)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Aluno com CPF " + cpf + " não encontrado."));
-
-        // Desativar o aluno
         aluno.setDesativado(true);
         alunoRepository.save(aluno);
     }
